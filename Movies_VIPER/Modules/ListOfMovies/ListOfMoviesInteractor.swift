@@ -18,4 +18,22 @@ class ListOfMoviesInteractor: ListOfMoviesInteractorInputProtocol {
         let (data, _) = try! await URLSession.shared.data(from: url)
         return try! JSONDecoder().decode(PopularMovieResponseEntity.self, from: data)
     }
+    
+    func map(entity: PopularMovieEntity) -> ViewModel {
+        ViewModel(title: entity.title,
+                  overview: entity.overview,
+                  imageURL: URL(string: "https://image.tmdb.org/t/p/w200\(entity.imageURL)"))
+    }
+    
+    
+    func getListOfMoviesMock() async -> PopularMovieResponseEntity {
+        return PopularMovieResponseEntity(results: [
+            .init(id: 0, title: "Name Movie", overview: "Aprende Swift", imageURL: "", votes: 10),
+            .init(id: 1, title: "Name Movie", overview: "Aprende Swift", imageURL: "", votes: 10),
+            .init(id: 2, title: "Name Movie", overview: "Aprende Swift", imageURL: "", votes: 10),
+            .init(id: 3, title: "Name Movie", overview: "Aprende Swift", imageURL: "", votes: 10),
+            .init(id: 4, title: "Name Movie", overview: "Aprende Swift", imageURL: "", votes: 10),
+            .init(id: 5, title: "Name Movie", overview: "Aprende Swift", imageURL: "", votes: 10),
+        ])
+    }
 }

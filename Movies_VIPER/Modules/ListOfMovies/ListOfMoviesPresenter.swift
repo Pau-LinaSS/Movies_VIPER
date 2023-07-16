@@ -10,10 +10,13 @@ import Foundation
 
 class ListOfMoviesPresenter {
     //MARK: Properties
+    ///viper
     var interactor: ListOfMoviesInteractorInputProtocol?
     weak private var view: ListOfMoviesViewProtocol?
     private let router: ListOfMoviesRouterProtocol
     
+    ///others properties
+    var viewModel: [ViewModel]?
     
     init(interface: ListOfMoviesViewProtocol, interactor: ListOfMoviesInteractorInputProtocol, router: ListOfMoviesRouterProtocol) {
         self.view = interface
@@ -26,8 +29,9 @@ extension ListOfMoviesPresenter: ListOfMoviesPresenterProtocol {
     
     func onViewAppear() {
         Task {
-            let models = await interactor?.getListOfMovies()
-            view?.update(movies: models!.results)
+            let models = await interactor!.getListOfMovies().results
+            viewModel = models.map(interactor!.map(entity:))
+            view?.update(movies: viewModel!)
         }
     }
     
