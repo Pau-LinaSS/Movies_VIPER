@@ -16,7 +16,8 @@ class ListOfMoviesPresenter {
     private let router: ListOfMoviesRouterProtocol
     
     ///others properties
-    var viewModel: [ViewModel]?
+    var viewModel: [MovieViewModel]?
+    var models: [PopularMovieEntity]?
     
     init(interface: ListOfMoviesViewProtocol, interactor: ListOfMoviesInteractorInputProtocol, router: ListOfMoviesRouterProtocol) {
         self.view = interface
@@ -29,12 +30,16 @@ extension ListOfMoviesPresenter: ListOfMoviesPresenterProtocol {
     
     func onViewAppear() {
         Task {
-            let models = await interactor!.getListOfMovies().results
-            viewModel = models.map(interactor!.map(entity:))
+            models = await interactor!.getListOfMovies().results
+            viewModel = models?.map(interactor!.map(entity:))
             view?.update(movies: viewModel!)
         }
     }
     
+    func onTapCell(atIndex: Int) {
+        let movieId = models?[atIndex].id
+        router.showDetailMovie(withMovieId: movieId!.description)
+    }
 }
 
 extension ListOfMoviesPresenter: ListOfMoviesInteractorOutputProtocol {

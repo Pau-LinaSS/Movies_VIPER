@@ -19,8 +19,8 @@ class ListOfMoviesInteractor: ListOfMoviesInteractorInputProtocol {
         return try! JSONDecoder().decode(PopularMovieResponseEntity.self, from: data)
     }
     
-    func map(entity: PopularMovieEntity) -> ViewModel {
-        ViewModel(title: entity.title,
+    func map(entity: PopularMovieEntity) -> MovieViewModel {
+        MovieViewModel(title: entity.title,
                   overview: entity.overview,
                   imageURL: URL(string: "https://image.tmdb.org/t/p/w200\(entity.imageURL)"))
     }

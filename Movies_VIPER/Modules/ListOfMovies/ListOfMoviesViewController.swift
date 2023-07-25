@@ -30,12 +30,13 @@ extension ListOfMoviesViewController {
         tableListMovie.register(MovieCellView.self, forCellReuseIdentifier: "MovieCellView")
         
         tableListMovie.dataSource = self
+        tableListMovie.delegate = self
     }
 }
 
 extension ListOfMoviesViewController: ListOfMoviesViewProtocol {
     
-    func update(movies: [ViewModel]) {
+    func update(movies: [MovieViewModel]) {
         print("Data: \(movies)")
         
         DispatchQueue.main.async {
@@ -59,6 +60,12 @@ extension ListOfMoviesViewController: UITableViewDataSource {
         cell.configure(model: model!)
         
         return cell
+    }
+}
+
+extension ListOfMoviesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.onTapCell(atIndex: indexPath.row)
     }
 }
 

@@ -31,7 +31,11 @@ class ListOfMoviesRouter {
 }
 
 extension ListOfMoviesRouter: ListOfMoviesRouterProtocol {
-    
+    func showDetailMovie(withMovieId movieId: String) {
+        let viewC = DetailMovieRouter.createModule(withMovieId: movieId)
+        
+        viewController?.navigationController?.pushViewController(viewC, animated: true)
+    }
 }
     
     

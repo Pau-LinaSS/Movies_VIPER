@@ -12,7 +12,7 @@ import Foundation
 protocol ListOfMoviesViewProtocol: AnyObject {
     var presenter: ListOfMoviesPresenterProtocol? {get set}
     
-    func update(movies: [ViewModel])
+    func update(movies: [MovieViewModel])
 }
 
 //Interactor
@@ -22,7 +22,7 @@ protocol ListOfMoviesInteractorInputProtocol: AnyObject {
     
     func getListOfMovies() async -> PopularMovieResponseEntity
     func getListOfMoviesMock() async -> PopularMovieResponseEntity //this not need repeat
-    func map(entity: PopularMovieEntity) -> ViewModel
+    func map(entity: PopularMovieEntity) -> MovieViewModel
 }
 
 
@@ -35,12 +35,14 @@ protocol ListOfMoviesInteractorOutputProtocol: AnyObject {
 protocol ListOfMoviesPresenterProtocol: AnyObject {
     var interactor: ListOfMoviesInteractorInputProtocol? {get set}
     
-    var viewModel: [ViewModel]? {get set}
+    var viewModel: [MovieViewModel]? {get set}
+    var models: [PopularMovieEntity]? {get set}
     
     func onViewAppear()
+    func onTapCell(atIndex: Int)
 }
 
 //Router
 protocol ListOfMoviesRouterProtocol: AnyObject {
-    
+    func showDetailMovie(withMovieId movieId: String)
 }

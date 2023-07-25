@@ -25,7 +25,7 @@ class MovieCellView: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(model: ViewModel) {
+    func configure(model: MovieViewModel) {
         imgPhotoCover.kf.setImage(with: model.imageURL)
         lblNameMovie.text = model.title
         llbDescriptionMovie.text = model.overview
