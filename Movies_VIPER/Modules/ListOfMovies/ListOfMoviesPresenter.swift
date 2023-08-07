@@ -29,11 +29,7 @@ class ListOfMoviesPresenter {
 extension ListOfMoviesPresenter: ListOfMoviesPresenterProtocol {
     
     func onViewAppear() {
-        Task {
-            models = await interactor!.getListOfMovies().results
-            viewModel = models?.map(interactor!.map(entity:))
-            view?.update(movies: viewModel!)
-        }
+        interactor?.getListOfMovies()
     }
     
     func onTapCell(atIndex: Int) {
@@ -43,5 +39,15 @@ extension ListOfMoviesPresenter: ListOfMoviesPresenterProtocol {
 }
 
 extension ListOfMoviesPresenter: ListOfMoviesInteractorOutputProtocol {
+    func setListOfMovies(data: [PopularMovieEntity]) {
+        models = data
+        if let models {
+            interactor?.map(entity: models)
+        }
+    }
     
+    func setListOfMovies(data: [MovieViewModel]) {
+        viewModel = data
+        view?.update(movies: viewModel!)
+    }
 }

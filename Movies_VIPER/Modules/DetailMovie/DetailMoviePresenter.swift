@@ -25,16 +25,18 @@ class DetailMoviePresenter {
 
 extension DetailMoviePresenter: DetailMoviePresenterProtocol {
     func onViewAppear() {
-        Task {
-            let model = await interactor?.getDetailMovie(withId: movieId!)
-            let viewModel = interactor?.map(entity: model!)
-            await MainActor.run {
-                view?.update(detailMovie: viewModel!)
-            }
-        }
+        interactor?.getDetailMovie(withId: movieId!)
     }
 }
 
 extension DetailMoviePresenter: DetailMovieInteractorOutputProtocol {
+    func setListOfMovies(data: DetailMovieEntity) {
+        interactor?.map(entity: data)
+    }
+    
+    func setListOfMovies(data: DetailMovieViewModel) {
+        view?.update(detailMovie: data)
+    }
+    
     
 }

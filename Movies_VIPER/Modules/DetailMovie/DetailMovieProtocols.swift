@@ -20,13 +20,15 @@ protocol DetailMovieInteractorInputProtocol: AnyObject {
     //Presenter -> Interactor
     var presenter: DetailMovieInteractorOutputProtocol? {get set}
     
-    func getDetailMovie(withId id: String) async -> DetailMovieEntity
-    func map(entity: DetailMovieEntity) -> DetailMovieViewModel
+    func getDetailMovie(withId id: String)
+    func map(entity: DetailMovieEntity)
 }
 
 
 protocol DetailMovieInteractorOutputProtocol: AnyObject {
     //Interactor->Presenter
+    func setListOfMovies(data: DetailMovieEntity)
+    func setListOfMovies(data: DetailMovieViewModel)
 }
 
 //Presenter

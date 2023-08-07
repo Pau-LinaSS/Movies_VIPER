@@ -20,15 +20,16 @@ protocol ListOfMoviesInteractorInputProtocol: AnyObject {
     //Presenter -> Interactor
     var presenter: ListOfMoviesInteractorOutputProtocol? {get set}
     
-    func getListOfMovies() async -> PopularMovieResponseEntity
-    func getListOfMoviesMock() async -> PopularMovieResponseEntity //this not need repeat
-    func map(entity: PopularMovieEntity) -> MovieViewModel
+    func getListOfMovies()
+    func getListOfMoviesMock() //this not need repeat
+    func map(entity: [PopularMovieEntity])
 }
 
 
 protocol ListOfMoviesInteractorOutputProtocol: AnyObject {
     //Interactor->Presenter
-    
+    func setListOfMovies(data: [PopularMovieEntity])
+    func setListOfMovies(data: [MovieViewModel])
 }
 
 //Presenter
